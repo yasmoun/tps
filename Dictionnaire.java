@@ -41,6 +41,9 @@ class Dictionnaire{
 		dico[nbMots] = m;
 		nbMots++;
 	}
+	 MotDico getMot(int i) {
+		 return dico[i];
+	 }
 
 	 int chercherMot (String ch) {
 		int trouve=-1;
@@ -57,7 +60,7 @@ class Dictionnaire{
 	}
 	void supprimerMot (String ch) {
 		if(chercherMot (ch)!=-1) {
-		 for (int i = chercherMot (ch) ; i < nbMots; i++) {
+		 for (int i = chercherMot (ch) ; i < nbMots-1; i++) {
 	            dico[i] = dico[i + 1];
 	}
 		nbMots--;
@@ -72,6 +75,10 @@ class Dictionnaire{
 		System.out.println("Mot n"+dico[i].getNum()+":"+dico[i].getMot()+" -> "+ dico[i].getDefinition()+"\n");
 		}
 	}
+	 void listerDico (int i) {
+			System.out.println("dictionnaire("+getNom()+") : ");
+			System.out.println("Mot n"+dico[i].getNum()+":"+dico[i].getMot()+" -> "+ dico[i].getDefinition()+"\n");
+		}
 	 int nbSynonymes (MotDico m) {
 		 int nb = 0;
 	        for (int i = 0; i < nbMots; i++) {
@@ -92,5 +99,24 @@ class test{
 	    dc.ajouterMot(mot2);
 	    dc.ajouterMot(mot3);
 	    dc.listerDico();
+	    if (dc.chercherMot ("belle")  != -1) {
+	    	dc.listerDico (dc.chercherMot ("belle"));
+	    } else {
+	        System.out.println("Le mot n'existe pas dans le dictionnaire.");
+	    }
+	    if (dc.chercherMot ("arbre")  != -1) {
+	    	dc.listerDico (dc.chercherMot ("arbre"));
+	    } else {
+	        System.out.println("Le mot n'existe pas dans le dictionnaire.");
+	    }
+	    if (dc.chercherMot ("arbre") != -1) {
+	        int nb = dc.nbSynonymes(dc.getMot(dc.chercherMot ("arbre")));
+	        System.out.println("Le mot a " + nb + " synonyme.");
+	        dc.supprimerMot("arbre");
 	}
+	    else {
+	    	System.out.println("le mot n'existe pas ");
+	    }
+	    dc.listerDico();
+}
 }
